@@ -13,10 +13,10 @@ use windows::{
 // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
 #[tauri::command]
 fn greet(name: &str) -> String {
-    unsafe { 
+    unsafe {
         let res = EnumWindows(Some(enum_window), LPARAM(0)).ok();
     }
-    return format!("Hello, {}! You've been greeted from Rust!", name)
+    return format!("Hello, {}! You've been greeted from Rust!", name);
 }
 
 extern "system" fn enum_window(window: HWND, _: LPARAM) -> BOOL {
