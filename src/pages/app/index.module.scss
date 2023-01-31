@@ -2,4 +2,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+}
+
+.debug-output {
+  margin-top: 20px;
+  padding: 10px;
+  display: flex;
 }
