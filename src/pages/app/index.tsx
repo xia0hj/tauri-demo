@@ -1,7 +1,7 @@
 import { Button } from 'antd';
 import { useState } from 'react';
 
-import { showOpenFileDialog } from '../../native-api';
+import { showOpenFileDialog } from '@/native-api';
 import styles from './index.module.scss'
 
 const App = (): JSX.Element => {
