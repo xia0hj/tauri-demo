@@ -3,6 +3,7 @@ import { useState } from 'react';
 
 import { showOpenFileDialog } from '@/native-api';
 import styles from './index.module.scss'
+import { invoke } from '@tauri-apps/api';
 
 const App = (): JSX.Element => {
 
@@ -19,8 +20,8 @@ const App = (): JSX.Element => {
     })
   }
 
-  const onBtnRun = async () => {
-
+  const onBtnRun = () => {
+    invoke('run', {path:curPath})
   }
 
   return (

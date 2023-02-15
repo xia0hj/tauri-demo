@@ -9,6 +9,7 @@ use windows::{
         EnumWindows, GetWindowInfo, GetWindowTextW, WINDOWINFO, WS_VISIBLE,
     },
 };
+use tokio::process::Command;
 
 // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
 #[tauri::command]
@@ -17,6 +18,15 @@ fn greet(name: &str) -> String {
         let res = EnumWindows(Some(enum_window), LPARAM(0)).ok();
     }
     return format!("Hello, {}! You've been greeted from Rust!", name);
+}
+
+#[tauri::command]
+async fn run(path: &str) -> Result<(), ()> {
+    println!("start run");
+    let mut child = Command::new(path).spawn().unwrap();
+    let res = child.wait().await;
+    println!("after await");
+    Ok(())
 }
 
 extern "system" fn enum_window(window: HWND, _: LPARAM) -> BOOL {
@@ -41,7 +51,7 @@ extern "system" fn enum_window(window: HWND, _: LPARAM) -> BOOL {
 
 fn main() {
     tauri::Builder::default()
-        .invoke_handler(tauri::generate_handler![greet])
+        .invoke_handler(tauri::generate_handler![greet, run])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
